@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Human timestamp
+GenericName=Human timestamp
+Exec=human-timestamp.py
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
+
