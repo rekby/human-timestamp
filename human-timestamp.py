@@ -8,15 +8,15 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gdk, Notify
 
+APPNAME="Human timestamp"
+
 last_clip_state = None
 
-Notify.init('Human timestamp')
+Notify.init(APPNAME)
 notification = Notify.Notification()
 
-start_since = datetime.datetime(1900, 1, 1).timestamp()
 
-
-def is_int(s: str)->bool:
+def is_int(s)->bool:
     try:
         int(s)
     except ValueError:
@@ -29,7 +29,7 @@ def clipboard_updated(clipboard, _event):
     text = clipboard.wait_for_text()  # type: str
     if is_int(text):
         val = int(text)
-        if val == last_clip_state and val > start_since:
+        if val == last_clip_state:
             summary = "human of {}".format(val)
 
             timevalue = datetime.datetime.fromtimestamp(val)
