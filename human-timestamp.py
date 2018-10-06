@@ -2,15 +2,16 @@
 
 import datetime
 import signal
-import notify2
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+gi.require_version('Notify', '0.7')
+from gi.repository import Gtk, Gdk, Notify
 
 last_clip_state = None
 
-notification = notify2.Notification('')
+Notify.init('Human timestamp')
+notification = Notify.Notification()
 
 start_since = datetime.datetime(1900, 1, 1).timestamp()
 
@@ -44,7 +45,6 @@ Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD).connect('owner-change', clipboard_upd
 
 
 def main():
-    notify2.init('human-timestamp')
     signal.signal(signal.SIGINT, signal.SIG_DFL)  # Exit on CTRL-C
     Gtk.main()
 
