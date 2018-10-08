@@ -30,10 +30,13 @@ def clipboard_updated(clipboard, _event):
     if is_int(text):
         val = int(text)
         if val == last_clip_state:
-            summary = "human of {}".format(val)
+            summary = "Time from timestamp: {}".format(val)
 
-            timevalue = datetime.datetime.fromtimestamp(val)
-            human_text = timevalue.strftime("%Y-%m-%d %H:%M:%S")
+            try:
+                timevalue = datetime.datetime.fromtimestamp(val)
+                human_text = timevalue.strftime("%Y-%m-%d %H:%M:%S")
+            except ValueError as ex:
+                human_text = "It is not time: {}".format(ex)
             notification.update(summary, human_text)
             notification.show()
         last_clip_state = val
